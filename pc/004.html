@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-36942F4VZ4"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-36942F4VZ4"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -151,16 +150,6 @@ body {
 }
 
 </style>
-<!-------------------------------------------------------TERMINA EL STYLE------------------------------------------>
-
-
-
-
-
-
-<!-------------------------------------------------------COMIENZA HTML---------------------------------------------->
-
-
 </head>
 <body>
 <div class="header">
@@ -172,22 +161,50 @@ body {
     <a href="./003.html">самостоятельное обучение</a>
     <a href="./004.html">бесплатные встречи в Zoom</a>
 </div>
-<!------------------------------------------- RECUADRO 1------------------->
 <div class="container">
     <div class="recuadro-titulo-4">      
-        <!-- <p class="fuente-titulo1">бесплатные встречи в Zoom</p> -->
-    </div>
+        </div>
     <div class="recuadros-inferiores">
-      <div class="recuadro-1"><iframe width="600" height="337" src="https://www.youtube.com/embed/Vmc9l9nV10k?start=366" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+      <div class="recuadro-1">
+        <iframe id="yt-player" width="600" height="337" src="" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
       <div class="recuadro-2"> <p class="fuente-parrafo1"> В отличие от Разговорного Kлуба, характеристики и задачи которого подробно описаны в соответствующем разделе, на этих бесплатных встречах всё более спонтанно и неформально. Здесь есть студенты разного уровня и с разными навыками, но с одинаковой страстью к изучению испанского языка. Если Вы хотите присоединиться к нам, пожалуйста, заполните форму справа. Наш следующий сезон встреч начнется 07 февраля 2026 года. Мы с нетерпением ждем Вас!</p></div>
       <div class="recuadro-3"><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdazvVeIOKETCzNGjMSOSiPX1ovtMk0eefXpybBUAGdfQcmXA/viewform?embedded=true" width="600" height="400" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe></div>
     </div>
   </div>
   
 
-<!------------------------------------------- FIN HTML ------------------------------------------------------>
+<script>
+  (function() {
+    // ID de tu canal de YouTube
+    var channelId = "UCdj9TjZ-9WMg0_S6ay5SQhQ";
+    // URL del feed RSS oficial de tu canal
+    var rssUrl = "https://www.youtube.com/feeds/videos.xml?channel_id=" + channelId;
+    // Conversor público para leer el XML de YouTube desde el navegador como JSON
+    var apiUrl = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(rssUrl);
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        if (data.items && data.items.length > 0) {
+          // El primer elemento (index 0) es estrictamente el último video publicado
+          var latestVideoUrl = data.items[0].link;
+          // Extraemos el ID del video (lo que viene después de v=)
+          var videoId = latestVideoUrl.split('v=')[1];
+          
+          if (videoId) {
+            // Asignamos la URL limpia del embed al iframe
+            document.getElementById('yt-player').src = "https://www.youtube.com/embed/" + videoId;
+          }
+        }
+      })
+      .catch(error => {
+        console.error("Error cargando el último video de YouTube:", error);
+        // Respaldo por si falla la API externa: carga un video por defecto
+        document.getElementById('yt-player').src = "https://www.youtube.com/embed/Vmc9l9nV10k";
+      });
+  })();
+</script>
 </body>
 
 </html>
-
-
